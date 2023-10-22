@@ -5,7 +5,7 @@ import "./App.css";
 //   img[numDay].src = "Images/" + picture[numImg];
 // }
 
-function App() {
+async function App() {
   return (
     <div>
       <Days/>

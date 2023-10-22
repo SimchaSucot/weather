@@ -31,7 +31,7 @@ let picture = {
   99: "stormy.svg",
 };
 
-async function getData() {
+async function Days() {
   let response = await fetch("https://ipapi.co/json/");
   let data = await response.json();
   let response2 = await fetch(
@@ -42,21 +42,23 @@ async function getData() {
       "&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Africa%2FCairo&forecast_days=3"
   );
 
-  let data2 = await response.json();
+  let data2 = await response2.json();
 
   let numImg = data2.daily.weathercode;
   let maxT = data2.daily.temperature_2m_max;
   let minT = data2.daily.temperature_2m_min;
 
-  return numImg,maxT,minT;
-}
+  console.log(numImg, maxT, minT);
 
-let data = getData();
+  // return ([numImg, maxT, minT]);
+  // }
 
-function Days(data){
-  let numImg = data[0]
-  let maxT = data[1]
-  let minT = data[2]
+  // let data = getData();
+
+  // async function Days(data) {
+  // let numImg = data[0];
+  // let maxT = data[1];
+  // let minT = data[2];
 
   return (
     <>
@@ -88,4 +90,4 @@ function Days(data){
     </>
   );
 }
-export default Days(data);
+export default Days();
