@@ -60,6 +60,8 @@ function Days(data) {
   let maxT = data[1];
   let minT = data[2];
 
+  console.log(numImg, maxT, minT);
+
   return (
     <>
       <h1>Welcome to the weather site</h1>
