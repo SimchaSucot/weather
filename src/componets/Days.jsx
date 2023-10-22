@@ -42,18 +42,22 @@ async function getData() {
       "&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Africa%2FCairo&forecast_days=3"
   );
 
-  return response2;
+  let data2 = await response.json();
+
+  let numImg = data2.daily.weathercode;
+  let maxT = data2.daily.temperature_2m_max;
+  let minT = data2.daily.temperature_2m_min;
+
+  return numImg,maxT,minT;
 }
 
-let response = await getData();
+let data = getData();
 
-let data2 = await response.json();
+function Days(data){
+  let numImg = data[0]
+  let maxT = data[1]
+  let minT = data[2]
 
-let numImg = data2.daily.weathercode;
-let maxT = data2.daily.temperature_2m_max;
-let minT = data2.daily.temperature_2m_min;
-
-function Days() {
   return (
     <>
       <h1>Welcome to the weather site</h1>
@@ -84,4 +88,4 @@ function Days() {
     </>
   );
 }
-export default Days;
+export default Days(data);
