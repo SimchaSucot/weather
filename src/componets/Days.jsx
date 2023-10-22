@@ -48,6 +48,8 @@ async function getData() {
   let maxT = data2.daily.temperature_2m_max;
   let minT = data2.daily.temperature_2m_min;
 
+  consol.log(numImg,maxT,minT);
+
   return numImg,maxT,minT;
 }
 
