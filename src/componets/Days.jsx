@@ -48,7 +48,14 @@ async function Days() {
   let maxT = data2.daily.temperature_2m_max;
   let minT = data2.daily.temperature_2m_min;
 
+<<<<<<< HEAD
   console.log(numImg, maxT, minT);
+=======
+  consol.log(numImg,maxT,minT);
+
+  return numImg,maxT,minT;
+}
+>>>>>>> 207804e4b23df3515cba66e2161bae666d7b9a81
 
   // return ([numImg, maxT, minT]);
   // }
