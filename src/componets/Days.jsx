@@ -1,39 +1,46 @@
-import "./Days.css";
+import React, { useEffect, useState } from "react";
 
-let picture = {
-  0: "sunny.svg",
-  1: "cloudy.svg",
-  2: "cloudy.svg",
-  3: "cloudy.svg",
-  45: "snowy.svg",
-  48: "snowy.svg",
-  51: "rainy.svg",
-  53: "rainy.svg",
-  55: "rainy.svg",
-  56: "rainy-2.svg",
-  57: "rainy-2.svg",
-  61: "rainy-2.svg",
-  63: "rainy-2.svg",
-  65: "rainy-2.svg",
-  66: "rainy-2.svg",
-  67: "rainy-2.svg",
-  71: "snowy.svg",
-  73: "snowy.svg",
-  75: "snowy.svg",
-  77: "snowy.svg",
-  80: "rainy-2.svg",
-  81: "rainy-2.svg",
-  82: "rainy-2.svg",
-  85: "snowy.svg",
-  86: "snowy.svg",
-  95: "stormy.svg",
-  96: "stormy.svg",
-  99: "stormy.svg",
-};
+import "./Days.css";
+// import "/Images/sunny.svg"
+// let picture = {
+//   0: "sunny.svg",
+//   1: "cloudy.svg",
+//   2: "cloudy.svg",
+//   3: "cloudy.svg",
+//   45: "snowy.svg",
+//   48: "snowy.svg",
+//   51: "rainy.svg",
+//   53: "rainy.svg",
+//   55: "rainy.svg",
+//   56: "rainy-2.svg",
+//   57: "rainy-2.svg",
+//   61: "rainy-2.svg",
+//   63: "rainy-2.svg",
+//   65: "rainy-2.svg",
+//   66: "rainy-2.svg",
+//   67: "rainy-2.svg",
+//   71: "snowy.svg",
+//   73: "snowy.svg",
+//   75: "snowy.svg",
+//   77: "snowy.svg",
+//   80: "rainy-2.svg",
+//   81: "rainy-2.svg",
+//   82: "rainy-2.svg",
+//   85: "snowy.svg",
+//   86: "snowy.svg",
+//   95: "stormy.svg",
+//   96: "stormy.svg",
+//   99: "stormy.svg",
+// };
 
 async function getData() {
   let response = await fetch("https://ipapi.co/json/");
   let data = await response.json();
+
+  let a = data.latitude;
+  let b = data.longitude;
+  console.log(a, b);
+
   let response2 = await fetch(
     "https://api.open-meteo.com/v1/forecast?latitude=" +
       data.latitude +
@@ -41,26 +48,33 @@ async function getData() {
       data.longitude +
       "&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Africa%2FCairo&forecast_days=3"
   );
-
   let data2 = await response2.json();
 
   let numImg = data2.daily.weathercode;
   let maxT = data2.daily.temperature_2m_max;
   let minT = data2.daily.temperature_2m_min;
+  console.log(numImg);
+  console.log(maxT);
+  console.log(minT);
+  console.log("asdfghgfd");
 
-  console.log(numImg, maxT, minT);
-
-  return [numImg, maxT, minT];
+  return [maxT, minT];
 }
 
-let data = getData();
-
-function Days(data) {
-  let numImg = data[0];
-  let maxT = data[1];
-  let minT = data[2];
-
-  console.log(numImg, maxT, minT);
+function Days() {
+  // const [numImg, setNumImg] = useState([]);
+  const [maxT, setMaxT] = useState([]);
+  const [minT, setMinT] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const [maxTemp, minTemp] = await getData();
+      // setMaxT(numberImg);
+      setMaxT(maxTemp);
+      setMinT(minTemp);
+    }
+    fetchData();
+  }, []);
+  console.log(maxT, minT);
 
   return (
     <>
@@ -69,27 +83,28 @@ function Days(data) {
       <div class="container">
         <div class="weather-day">
           <div class="day">Today</div>
-          <img src={"/Images/" + picture[numImg[0]]} alt="" />
+          <img src="" alt="" />
           <div class="temperature">
-            Max:{Math.floor(maxT[0])}° Min:{Math.floor(minT[0])}°
+            Max: {Math.floor(maxT[0])}° Min: {Math.floor(minT[0])}°
           </div>
         </div>
         <div class="weather-day">
           <div class="day">Tomorrow</div>
-          <img src={"/Images/" + picture[numImg[1]]} alt="" />
+          <img src="" alt="" />
           <div class="temperature">
-            Max:{Math.floor(maxT[1])}° Min:{Math.floor(minT[1])}°
+            Max: {Math.floor(maxT[1])}° Min: {Math.floor(minT[1])}°
           </div>
         </div>
         <div class="weather-day">
           <div class="day">Overmorrow</div>
-          <img src={"/Images/" + picture[numImg[0]]} alt="" />
+          <img src="" alt="" />
           <div class="temperature">
-            Max:{Math.floor(maxT[2])}° Min:{Math.floor(minT[2])}°
+            Max: {Math.floor(maxT[2])}° Min: {Math.floor(minT[2])}°
           </div>
         </div>
       </div>
     </>
   );
 }
-export default Days(data);
+
+export default Days;
