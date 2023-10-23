@@ -1,37 +1,43 @@
 import React, { useEffect, useState } from "react";
 
 import "./Days.css";
-// import "/Images/sunny.svg"
-// let picture = {
-//   0: "sunny.svg",
-//   1: "cloudy.svg",
-//   2: "cloudy.svg",
-//   3: "cloudy.svg",
-//   45: "snowy.svg",
-//   48: "snowy.svg",
-//   51: "rainy.svg",
-//   53: "rainy.svg",
-//   55: "rainy.svg",
-//   56: "rainy-2.svg",
-//   57: "rainy-2.svg",
-//   61: "rainy-2.svg",
-//   63: "rainy-2.svg",
-//   65: "rainy-2.svg",
-//   66: "rainy-2.svg",
-//   67: "rainy-2.svg",
-//   71: "snowy.svg",
-//   73: "snowy.svg",
-//   75: "snowy.svg",
-//   77: "snowy.svg",
-//   80: "rainy-2.svg",
-//   81: "rainy-2.svg",
-//   82: "rainy-2.svg",
-//   85: "snowy.svg",
-//   86: "snowy.svg",
-//   95: "stormy.svg",
-//   96: "stormy.svg",
-//   99: "stormy.svg",
-// };
+import sunny from "/Images/sunny.svg"
+import cloudy from "/Images/cloudy.svg"
+import snowy from "/Images/snowy.svg"
+import rainy from "/Images/rainy.svg"
+import rainy_2 from "/Images/rainy-2.svg"
+import stormy from "/Images/stormy.svg"
+
+let picture = {
+  0: sunny,
+  1: cloudy,
+  2: cloudy,
+  3: cloudy,
+  45: snowy,
+  48: snowy,
+  51: rainy,
+  53: rainy,
+  55: rainy,
+  56: rainy_2,
+  57: rainy_2,
+  61: rainy_2,
+  63: rainy_2,
+  65: rainy_2,
+  66: rainy_2,
+  67: rainy_2,
+  71: snowy,
+  73: snowy,
+  75: snowy,
+  77: snowy,
+  80: rainy_2,
+  81: rainy_2,
+  82: rainy_2,
+  85: snowy,
+  86: snowy,
+  95: stormy,
+  96: stormy,
+  99: stormy,
+};
 
 async function getData() {
   let response = await fetch("https://ipapi.co/json/");
@@ -58,23 +64,23 @@ async function getData() {
   console.log(minT);
   console.log("asdfghgfd");
 
-  return [maxT, minT];
+  return [numImg, maxT, minT];
 }
 
 function Days() {
-  // const [numImg, setNumImg] = useState([]);
+  const [numImg, setNumImg] = useState([]);
   const [maxT, setMaxT] = useState([]);
   const [minT, setMinT] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const [maxTemp, minTemp] = await getData();
-      // setMaxT(numberImg);
+      const [numberImg,maxTemp, minTemp] = await getData();
+      setNumImg(numberImg);
       setMaxT(maxTemp);
       setMinT(minTemp);
     }
     fetchData();
   }, []);
-  console.log(maxT, minT);
+  console.log(numImg, maxT, minT);
 
   return (
     <>
@@ -83,21 +89,21 @@ function Days() {
       <div class="container">
         <div class="weather-day">
           <div class="day">Today</div>
-          <img src="" alt="" />
+          <img src={picture[numImg[0]]} alt="" />
           <div class="temperature">
             Max: {Math.floor(maxT[0])}° Min: {Math.floor(minT[0])}°
           </div>
         </div>
         <div class="weather-day">
           <div class="day">Tomorrow</div>
-          <img src="" alt="" />
+          <img src={picture[numImg[1]]} alt="" />
           <div class="temperature">
             Max: {Math.floor(maxT[1])}° Min: {Math.floor(minT[1])}°
           </div>
         </div>
         <div class="weather-day">
           <div class="day">Overmorrow</div>
-          <img src="" alt="" />
+          <img src={picture[numImg[2]]} alt="" />
           <div class="temperature">
             Max: {Math.floor(maxT[2])}° Min: {Math.floor(minT[2])}°
           </div>
