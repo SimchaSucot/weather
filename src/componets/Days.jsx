@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import "./Days.css";
-import sunny from "/Images/sunny.svg"
-import cloudy from "/Images/cloudy.svg"
-import snowy from "/Images/snowy.svg"
-import rainy from "/Images/rainy.svg"
-import rainy_2 from "/Images/rainy-2.svg"
-import stormy from "/Images/stormy.svg"
+import sunny from "/Images/sunny.svg";
+import cloudy from "/Images/cloudy.svg";
+import snowy from "/Images/snowy.svg";
+import rainy from "/Images/rainy.svg";
+import rainy_2 from "/Images/rainy-2.svg";
+import stormy from "/Images/stormy.svg";
 
 let picture = {
   0: sunny,
@@ -45,7 +45,7 @@ async function getData() {
 
   let a = data.latitude;
   let b = data.longitude;
-  console.log(a, b);
+  let city = data.country_capital;
 
   let response2 = await fetch(
     "https://api.open-meteo.com/v1/forecast?latitude=" +
@@ -59,33 +59,32 @@ async function getData() {
   let numImg = data2.daily.weathercode;
   let maxT = data2.daily.temperature_2m_max;
   let minT = data2.daily.temperature_2m_min;
-  console.log(numImg);
-  console.log(maxT);
-  console.log(minT);
-  console.log("asdfghgfd");
+  console.log(city, numImg, maxT, minT);
 
-  return [numImg, maxT, minT];
+  return ["from data: ",city, numImg, maxT, minT];
 }
 
 function Days() {
+  const [city, setCity] = useState([]);
   const [numImg, setNumImg] = useState([]);
   const [maxT, setMaxT] = useState([]);
   const [minT, setMinT] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const [numberImg,maxTemp, minTemp] = await getData();
+      const [cityName, numberImg, maxTemp, minTemp] = await getData();
+      setCity(cityName);
       setNumImg(numberImg);
       setMaxT(maxTemp);
       setMinT(minTemp);
     }
     fetchData();
   }, []);
-  console.log(numImg, maxT, minT);
+  console.log("from function: ",city, numImg, maxT, minT);
 
   return (
     <>
       <h1>Welcome to the weather site</h1>
-      <h2>The weather in your area is:</h2>
+      <h2>The weather now in {city}</h2>
       <div class="container">
         <div class="weather-day">
           <div class="day">Today</div>
@@ -112,5 +111,4 @@ function Days() {
     </>
   );
 }
-
 export default Days;
