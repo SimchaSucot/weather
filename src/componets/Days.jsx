@@ -59,9 +59,9 @@ async function getData() {
   let numImg = data2.daily.weathercode;
   let maxT = data2.daily.temperature_2m_max;
   let minT = data2.daily.temperature_2m_min;
-  console.log(city, numImg, maxT, minT);
+  console.log("from data: ", city, numImg, maxT, minT);
 
-  return ["from data: ",city, numImg, maxT, minT];
+  return [city, numImg, maxT, minT];
 }
 
 function Days() {
