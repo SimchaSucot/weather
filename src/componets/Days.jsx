@@ -84,7 +84,7 @@ function Days() {
   return (
     <>
       <h1>Welcome to the weather site</h1>
-      <h2>The weather now in {city}</h2>
+      <h2>The weather in {city}</h2>
       <div class="container">
         <div class="weather-day">
           <div class="day">Today</div>
